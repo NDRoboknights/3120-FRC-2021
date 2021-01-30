@@ -4,77 +4,113 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
- 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import frc.robot.Robot;
 
-public class SwerveDriveSystem extends SubsystemBase 
-{
-  /** Creates a new SwerveDriveSystem. */
-  private TalonFX steerFrontRight, steerFrontLeft, steerBackRight, steerBackLeft,
-    driveFrontRight, driveFrontLeft, driveBackRight, driveBackLeft;
-  
-  private static final Translation2d moduleFrontLeft = new Translation2d(Units.inchesToMeters(12.75), Units.inchesToMeters(10.75));
-  private static final Translation2d moduleFrontRight = new Translation2d(Units.inchesToMeters(12.75), Units.inchesToMeters(-10.75));
-  private static final Translation2d moduleBackLeft = new Translation2d(Units.inchesToMeters(-12.75), Units.inchesToMeters(10.75));
-  private static final Translation2d moduleBackRight = new Translation2d(Units.inchesToMeters(-12.75), Units.inchesToMeters(-10.75));
+public class SwerveDriveSystem extends SubsystemBase {
+  private SwerveDriveOdometry swerveOdometry;
+  private SwerveModule m_frontLeft;
+  private SwerveModule m_frontRight;
+  private SwerveModule m_rearLeft;
+  private SwerveModule m_rearRight;
 
-  private SwerveDriveKinematics sdKinematics = new SwerveDriveKinematics(moduleFrontLeft, moduleFrontRight, moduleBackLeft, moduleBackRight);
+  public SwerveDriveSystem(){
+    zeroGyro();
+    swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.sdKinematics, getGyroHeading());
 
-  public SwerveDriveSystem(int... ids)
-  {
-    steerFrontRight = new TalonFX(ids[0]);
-    driveFrontRight = new TalonFX(ids[1]);
+    m_frontLeft =
+      new SwerveModule( 
+        Constants.Swerve.Mod1.angleOffset, Constants.Swerve.Mod1.angleID, Constants.Swerve.Mod1.driveID,
+        Constants.Swerve.Mod1.driveInvert, Constants.Swerve.Mod1.angleInvert,
+        Robot.ctreConfigs.mod1AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
 
-    steerFrontLeft = new TalonFX(ids[2]);
-    driveFrontLeft = new TalonFX(ids[3]);
-
-    steerBackRight = new TalonFX(ids[4]);
-    driveBackRight = new TalonFX(ids[5]);
-    
-    steerBackLeft = new TalonFX(ids[6]);
-    driveBackLeft = new TalonFX(ids[7]);
+    m_frontRight =
+      new SwerveModule( 
+        Constants.Swerve.Mod2.angleOffset, Constants.Swerve.Mod2.angleID, Constants.Swerve.Mod2.driveID,
+        Constants.Swerve.Mod2.driveInvert, Constants.Swerve.Mod2.angleInvert,
+        Robot.ctreConfigs.mod2AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
+          
+    m_rearLeft =
+      new SwerveModule( 
+        Constants.Swerve.Mod3.angleOffset, Constants.Swerve.Mod3.angleID, Constants.Swerve.Mod3.driveID,
+        Constants.Swerve.Mod3.driveInvert, Constants.Swerve.Mod3.angleInvert,
+        Robot.ctreConfigs.mod3AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
+        
+    m_rearRight =
+      new SwerveModule( 
+        Constants.Swerve.Mod4.angleOffset, Constants.Swerve.Mod4.angleID, Constants.Swerve.Mod4.driveID,
+        Constants.Swerve.Mod4.driveInvert, Constants.Swerve.Mod4.angleInvert,
+        Robot.ctreConfigs.mod4AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
   }
+
+  /* Used for standard Drive */
+  public void drive(Translation2d translation, double rotation, boolean fieldRelative) {
+    SwerveModuleState[] swerveModuleStates =
+        Constants.Swerve.sdKinematics.toSwerveModuleStates(
+            fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                                translation.getX(), 
+                                translation.getY(), 
+                                rotation, 
+                                getGyroHeading()
+                            )
+                            : new ChassisSpeeds(
+                                translation.getX(), 
+                                translation.getY(), 
+                                rotation)
+                            );
+    SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, Constants.Swerve.maxDriveSpeed);
+    m_frontLeft.setDesiredState(swerveModuleStates[0]);
+    m_frontRight.setDesiredState(swerveModuleStates[1]);
+    m_rearLeft.setDesiredState(swerveModuleStates[2]);
+    m_rearRight.setDesiredState(swerveModuleStates[3]);
+
+  }
+
+  /* Used by swerve controller in auto */
+  public void setModuleStates(SwerveModuleState[] desiredStates) {
+      SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, Constants.Swerve.maxDriveSpeed);
+      m_frontLeft.setDesiredState(desiredStates[0]);
+      m_frontRight.setDesiredState(desiredStates[1]);
+      m_rearLeft.setDesiredState(desiredStates[2]);
+      m_rearRight.setDesiredState(desiredStates[3]);
+  }
+
+  public Pose2d getSwervePose() {
+      return swerveOdometry.getPoseMeters();
+  }
+
+  public void resetSwerveOdometry(Pose2d pose) {
+      swerveOdometry.resetPosition(pose, getGyroHeading());
+  }
+
+  public SwerveModuleState[] getStates(){
+      SwerveModuleState[] states = new SwerveModuleState[4];
+      states[0] = m_frontLeft.getState();
+      states[1] = m_frontRight.getState();
+      states[2] = m_rearLeft.getState();
+      states[3] = m_rearRight.getState();
+      return states;
+  }
+
+  public void zeroGyro(){
+      //TODO: Zero Your Gyro
+  }
+
+  public Rotation2d getGyroHeading() {
+      //TODO: Setup Your Gyro
+      return new Rotation2d();
+  }  
 
   @Override
-  public void periodic()
-  {
-    // This method will be called once per scheduler run
-    ChassisSpeeds speeds = controllerToSpeeds();
-
-    SwerveModuleState[] states = sdKinematics.toSwerveModuleStates(speeds);
-
-    driveFrontLeft.set(ControlMode.Velocity, states[0].speedMetersPerSecond);
-    steerFrontLeft.set(ControlMode.Position, states[0].angle.getDegrees());
-
-    driveFrontRight.set(ControlMode.Velocity, states[1].speedMetersPerSecond);
-    steerFrontRight.set(ControlMode.Position, states[1].angle.getDegrees());
-
-    driveBackLeft.set(ControlMode.Velocity, states[2].speedMetersPerSecond);
-    steerBackLeft.set(ControlMode.Position, states[2].angle.getDegrees());
-
-    driveBackRight.set(ControlMode.Velocity, states[3].speedMetersPerSecond);
-    steerBackRight.set(ControlMode.Position, states[3].angle.getDegrees());
+  public void periodic(){    
+    swerveOdometry.update(getGyroHeading(), getStates());
   }
-
-  private ChassisSpeeds controllerToSpeeds()
-  {
-    double x = Units.feetToMeters(RobotContainer.controller.getX(Hand.kLeft) * Constants.DRIVE_MAX_SPEED);
-    double y = Units.feetToMeters(RobotContainer.controller.getY(Hand.kLeft) * Constants.DRIVE_MAX_SPEED);
-
-    double theta = Math.atan2(y, x);
-
-    return new ChassisSpeeds(x, y, theta);
-  }
-
-  public void simulationPeriodic(){}
 }
