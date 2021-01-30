@@ -1,0 +1,60 @@
+package frc.lib.math;
+
+
+public class Conversions {
+
+    /**
+     * @param units Falcon Counts
+     * @param gearRatio Gear Ratio between Falcon and Mechanism
+     * @return Degrees of Rotation of Mechanism
+     */
+    public static double toDegreesFromFalcon(double units, double gearRatio) {
+        return units * (360.0 / (gearRatio * 2048.0));
+    }
+
+    /**
+     * @param degrees Degrees of rotation of Mechanism
+     * @param gearRatio Gear Ratio between Falcon and Mechanism
+     * @return Falcon Counts
+     */
+    public static int toFalconFromDegrees(double degrees, double gearRatio) {
+        double ticks =  degrees / (360.0 / (gearRatio * 2048.0));
+        return (int)ticks;
+    }
+
+    /**
+     * @param velocityCounts Falcon Velocity Counts
+     * @param gearRatio Gear Ratio between Falcon and Mechanism (set to 1 for Falcon RPM)
+     * @return RPM of Mechanism
+     */
+    public static double toRPMFromFalcon(double velocityCounts, double gearRatio) {
+        double motorRPM = velocityCounts * (600.0 / 2048.0);        
+        double mechRPM = motorRPM / gearRatio;
+        return mechRPM;
+    }
+
+    /**
+     * @param velocity Velocity MPS
+     * @param diameter Diameter of Mechanism
+     * @param gearRatio Gear Ratio between Falcon and Mechanism (set to 1 for Falcon RPM)
+     * @return Falcon Velocity Counts
+     */
+    public static double toFalconFromMetersPerSecond(double velocity, double diameter, double gearRatio){
+        double wheelMPS = velocity;
+        double wheelRPM = ((wheelMPS * 60) / diameter);
+        double wheelVelocity = toFalconFromRPM(wheelRPM, gearRatio);
+        return wheelVelocity;
+    }
+
+    /**
+     * @param RPM RPM of mechanism
+     * @param gearRatio Gear Ratio between Falcon and Mechanism (set to 1 for Falcon RPM)
+     * @return RPM of Mechanism
+     */
+    public static double toFalconFromRPM(double RPM, double gearRatio) {
+        double motorRPM = RPM * gearRatio;
+        double sensorCounts = motorRPM / (600.0 / 2048.0);
+        return sensorCounts;
+    }
+
+}
