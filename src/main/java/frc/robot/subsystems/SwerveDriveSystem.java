@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.util.NavX;
 import frc.robot.Constants;
 import frc.robot.Robot;
+
 
 public class SwerveDriveSystem extends SubsystemBase {
   private SwerveDriveOdometry swerveOdometry;
@@ -21,6 +23,7 @@ public class SwerveDriveSystem extends SubsystemBase {
   private SwerveModule m_frontRight;
   private SwerveModule m_rearLeft;
   private SwerveModule m_rearRight;
+  private NavX navx;
 
   public SwerveDriveSystem(){
     zeroGyro();
@@ -29,25 +32,25 @@ public class SwerveDriveSystem extends SubsystemBase {
     m_frontLeft =
       new SwerveModule( 
         Constants.Swerve.Mod1.angleOffset, Constants.Swerve.Mod1.angleID, Constants.Swerve.Mod1.driveID,
-        Constants.Swerve.Mod1.driveInvert, Constants.Swerve.Mod1.angleInvert,
+        Constants.Swerve.Mod1.encID, Constants.Swerve.Mod1.driveInvert, Constants.Swerve.Mod1.angleInvert,
         Robot.ctreConfigs.mod1AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
 
     m_frontRight =
       new SwerveModule( 
         Constants.Swerve.Mod2.angleOffset, Constants.Swerve.Mod2.angleID, Constants.Swerve.Mod2.driveID,
-        Constants.Swerve.Mod2.driveInvert, Constants.Swerve.Mod2.angleInvert,
+        Constants.Swerve.Mod2.encID, Constants.Swerve.Mod2.driveInvert, Constants.Swerve.Mod2.angleInvert,
         Robot.ctreConfigs.mod2AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
           
     m_rearLeft =
       new SwerveModule( 
         Constants.Swerve.Mod3.angleOffset, Constants.Swerve.Mod3.angleID, Constants.Swerve.Mod3.driveID,
-        Constants.Swerve.Mod3.driveInvert, Constants.Swerve.Mod3.angleInvert,
+        Constants.Swerve.Mod3.encID, Constants.Swerve.Mod3.driveInvert, Constants.Swerve.Mod3.angleInvert,
         Robot.ctreConfigs.mod3AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
         
     m_rearRight =
       new SwerveModule( 
         Constants.Swerve.Mod4.angleOffset, Constants.Swerve.Mod4.angleID, Constants.Swerve.Mod4.driveID,
-        Constants.Swerve.Mod4.driveInvert, Constants.Swerve.Mod4.angleInvert,
+        Constants.Swerve.Mod3.encID, Constants.Swerve.Mod4.driveInvert, Constants.Swerve.Mod4.angleInvert,
         Robot.ctreConfigs.mod4AngleFXConfig, Robot.ctreConfigs.swerveDriveFXConfig);
   }
 
@@ -100,14 +103,11 @@ public class SwerveDriveSystem extends SubsystemBase {
       return states;
   }
 
-  public void zeroGyro(){
-      //TODO: Zero Your Gyro
+  public void zeroGyro(){ 
+    navx.zeroYaw(); 
   }
 
-  public Rotation2d getGyroHeading() {
-      //TODO: Setup Your Gyro
-      return new Rotation2d();
-  }  
+  public Rotation2d getGyroHeading() { return new Rotation2d(navx.getHeading()); }  
 
   @Override
   public void periodic(){    
