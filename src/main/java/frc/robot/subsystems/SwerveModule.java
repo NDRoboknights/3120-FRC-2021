@@ -91,7 +91,7 @@ public class SwerveModule {
     }
 
     public double getAbsolutePos(){
-        return encoder.getOutput();
+        return encoder.getOutput() * 360;
         //return encoder.getSelectedSensorPosition() / 4096;
     }
 
