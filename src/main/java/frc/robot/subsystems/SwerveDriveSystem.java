@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.NavX;
 import frc.robot.Constants;
@@ -112,5 +113,9 @@ public class SwerveDriveSystem extends SubsystemBase {
   @Override
   public void periodic(){    
     swerveOdometry.update(getGyroHeading(), getStates());
+    SmartDashboard.putNumber("Swerve Module 1 Enc: ", getStates()[0].angle.getDegrees());
+    SmartDashboard.putNumber("Swerve Module 2 Enc: ", getStates()[1].angle.getDegrees());
+    SmartDashboard.putNumber("Swerve Module 3 Enc: ", getStates()[2].angle.getDegrees());
+    SmartDashboard.putNumber("Swerve Module 4 Enc: ", getStates()[3].angle.getDegrees());
   }
 }
