@@ -113,9 +113,9 @@ public class SwerveDriveSystem extends SubsystemBase {
   @Override
   public void periodic(){    
     swerveOdometry.update(getGyroHeading(), getStates());
-    SmartDashboard.putNumber("Swerve Module 1 Enc: ", getStates()[0].angle.getDegrees());
-    SmartDashboard.putNumber("Swerve Module 2 Enc: ", getStates()[1].angle.getDegrees());
-    SmartDashboard.putNumber("Swerve Module 3 Enc: ", getStates()[2].angle.getDegrees());
-    SmartDashboard.putNumber("Swerve Module 4 Enc: ", getStates()[3].angle.getDegrees());
+    SmartDashboard.putNumber("Swerve Module Front: ", m_frontLeft.getAbsolutePos());
+    SmartDashboard.putNumber("Swerve Module Front Right: ", m_frontRight.getAbsolutePos());
+    SmartDashboard.putNumber("Swerve Module Back Left: ", m_rearLeft.getAbsolutePos());
+    SmartDashboard.putNumber("Swerve Module Back Right: ", m_rearRight.getAbsolutePos());
   }
 }
