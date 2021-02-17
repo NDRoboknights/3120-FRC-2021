@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.NavX;
 import frc.robot.Constants;
@@ -112,5 +113,9 @@ public class SwerveDriveSystem extends SubsystemBase {
   @Override
   public void periodic(){    
     swerveOdometry.update(getGyroHeading(), getStates());
+    SmartDashboard.putNumber("Swerve Module Front: ", m_frontLeft.getAbsolutePos());
+    SmartDashboard.putNumber("Swerve Module Front Right: ", m_frontRight.getAbsolutePos());
+    SmartDashboard.putNumber("Swerve Module Back Left: ", m_rearLeft.getAbsolutePos());
+    SmartDashboard.putNumber("Swerve Module Back Right: ", m_rearRight.getAbsolutePos());
   }
 }

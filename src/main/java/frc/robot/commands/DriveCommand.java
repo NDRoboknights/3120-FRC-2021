@@ -49,10 +49,5 @@ public class DriveCommand extends CommandBase {
         translation = new Translation2d(yAxis, xAxis).times(Constants.Swerve.maxDriveSpeed);
         rotation = rAxis * Constants.Swerve.maxAngularSpeed;
         s_Swerve.drive(translation, rotation, fieldRelative);
-
-        SmartDashboard.putNumber("Swerve Module 1 Enc: ", s_Swerve.getStates()[0].angle.getDegrees());
-        SmartDashboard.putNumber("Swerve Module 2 Enc: ", s_Swerve.getStates()[1].angle.getDegrees());
-        SmartDashboard.putNumber("Swerve Module 3 Enc: ", s_Swerve.getStates()[2].angle.getDegrees());
-        SmartDashboard.putNumber("Swerve Module 4 Enc: ", s_Swerve.getStates()[3].angle.getDegrees());
     }
 }
