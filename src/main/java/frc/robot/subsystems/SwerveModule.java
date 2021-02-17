@@ -11,8 +11,10 @@ import static frc.lib.math.Conversions.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class SwerveModule {
     private TalonFX mAngleMotor;
@@ -20,6 +22,7 @@ public class SwerveModule {
     private TalonFXConfiguration angleMotorConfig;
     private TalonFXConfiguration driveMotorConfig;
     private DutyCycle encoder;
+    //private TalonSRX encoder;
     private double offset;
     private boolean invertDrive;
     private boolean invertAngle;
@@ -34,7 +37,10 @@ public class SwerveModule {
         
         /* Absolute Encoder Config */
         encoder = new DutyCycle(new DigitalInput(encoderPort));
-
+        //encoder = new TalonSRX(encoderPort);
+        //encoder.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 1);
+        
+        
         /* Angle Motor Config */
         mAngleMotor = new TalonFX(angleMotorID);
         configAngleMotor();
@@ -86,6 +92,7 @@ public class SwerveModule {
 
     public double getAbsolutePos(){
         return encoder.getOutput();
+        //return encoder.getSelectedSensorPosition() / 4096;
     }
 
     public Rotation2d getAngle(){

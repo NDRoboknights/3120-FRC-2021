@@ -27,8 +27,8 @@ public final class Constants {
         public static final double wheelDiameter = Units.inchesToMeters(4);
         public static final double wheelCircumference = wheelDiameter * Math.PI;
 
-        public static final double driveGearRatio = (7.2 / 1.0); //TODO: Set your Gear Ratio
-        public static final double angleGearRatio = (18.0 / 1.0); //TODO: Set your Gear Ratio
+        public static final double driveGearRatio = (6.84); //TODO: Set your Gear Ratio
+        public static final double angleGearRatio = (12.8); //TODO: Set your Gear Ratio
 
         /* Distance between front and back wheels on robot */
         public static final SwerveDriveKinematics sdKinematics = new SwerveDriveKinematics(
@@ -82,7 +82,7 @@ public final class Constants {
             public static final int angleID = 2;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = -127.45;
+            public static final double angleOffset = 0;
         }
 
         /** Front Right Module */
@@ -92,7 +92,7 @@ public final class Constants {
             public static final int angleID = 4;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = -103.4;
+            public static final double angleOffset = 0;
         }
         
         /** Back Left Module */
@@ -102,7 +102,7 @@ public final class Constants {
             public static final int angleID = 6;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = -33.0;
+            public static final double angleOffset = 0;
         }
 
         /** Back Right Module */
@@ -112,7 +112,7 @@ public final class Constants {
             public static final int angleID = 8;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = -159.5;
+            public static final double angleOffset = 0;
         }
 
     }
