@@ -55,10 +55,10 @@ public class SwerveModule {
     public void setDesiredState(SwerveModuleState desiredState){
         SwerveModuleState state = new OptimizedSwerveModuleState(desiredState).optimize(desiredState, getAngle()); //Custom SwerveModuleState used only here for the customized .optimize function to work with CTRE
 
-        mDriveMotor.set(ControlMode.Velocity, toFalconFromMetersPerSecond(state.speedMetersPerSecond, Constants.Swerve.wheelDiameter, Constants.Swerve.driveGearRatio));
+        mDriveMotor.set(ControlMode.Velocity, toFalconFromMetersPerSecond(state.speedMetersPerSecond, Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio));
 
         double angle = (Math.abs(state.speedMetersPerSecond) <= (Constants.Swerve.maxDriveSpeed* 0.05)) ? lastAngle : state.angle.getDegrees(); //If the specified drive output is very small and not enough to actually move the robot, then don't move the module angle (AKA a Deadzone) 
-        mAngleMotor.set(ControlMode.MotionMagic, toFalconFromDegrees(angle, Constants.Swerve.angleGearRatio));
+        mAngleMotor.set(ControlMode.Position, toFalconFromDegrees(angle, Constants.Swerve.angleGearRatio));
         lastAngle = angle;
     }
 
@@ -100,9 +100,7 @@ public class SwerveModule {
     }
 
     public double getVelocity(){
-        double wheelRPM = toRPMFromFalcon(mDriveMotor.getSelectedSensorVelocity(), Constants.Swerve.driveGearRatio);
-        double wheelMPS = (wheelRPM * Constants.Swerve.wheelCircumference) / 60;
-        return wheelMPS;
+        return toMetersPerSecondFromFalcon(mDriveMotor.getSelectedSensorVelocity(), Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio);
     }
 
     public SwerveModuleState getState(){
