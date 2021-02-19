@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -24,7 +25,7 @@ public class SwerveDriveSystem extends SubsystemBase {
   private SwerveModule m_frontRight;
   private SwerveModule m_rearLeft;
   private SwerveModule m_rearRight;
-  private NavX navx;
+  private NavX navx = new NavX(Port.kMXP);
 
   public SwerveDriveSystem(){
     zeroGyro();
