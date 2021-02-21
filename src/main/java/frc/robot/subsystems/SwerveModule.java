@@ -92,7 +92,7 @@ public class SwerveModule {
     }
 
     public double getAbsolutePos(){
-        return ((encoder.getFrequency()/4096)*360);
+        return (encoder.get()*360);
     }
 
     public Rotation2d getAngle(){

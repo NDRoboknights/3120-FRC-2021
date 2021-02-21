@@ -82,7 +82,7 @@ public final class Constants {
             public static final int angleID = 0;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 0;
+            public static final double angleOffset = 149.2;
         }
 
         /** Front Right Module */
@@ -92,7 +92,7 @@ public final class Constants {
             public static final int angleID = 6;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 0;
+            public static final double angleOffset = 0.88;
         }
         
         /** Back Left Module */
@@ -102,7 +102,7 @@ public final class Constants {
             public static final int angleID = 7;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 0;
+            public static final double angleOffset = 6.86;
         }
 
         /** Back Right Module */
@@ -112,7 +112,7 @@ public final class Constants {
             public static final int angleID = 4;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 0;
+            public static final double angleOffset = 311.3;
         }
 
     }
