@@ -79,7 +79,7 @@ public final class Constants {
         public static final class Mod1 {
             public static final int encID = 0;
             public static final int driveID = 1;
-            public static final int angleID = 2;
+            public static final int angleID = 0;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
             public static final double angleOffset = 0;
@@ -88,8 +88,8 @@ public final class Constants {
         /** Front Right Module */
         public static final class Mod2 {
             public static final int encID = 1;
-            public static final int driveID = 3;
-            public static final int angleID = 4;
+            public static final int driveID = 2;
+            public static final int angleID = 6;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
             public static final double angleOffset = 0;
@@ -98,8 +98,8 @@ public final class Constants {
         /** Back Left Module */
         public static final class Mod3 {
             public static final int encID = 2;
-            public static final int driveID = 5;
-            public static final int angleID = 6;
+            public static final int driveID = 3;
+            public static final int angleID = 7;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
             public static final double angleOffset = 0;
@@ -108,8 +108,8 @@ public final class Constants {
         /** Back Right Module */
         public static final class Mod4 {
             public static final int encID = 3;
-            public static final int driveID = 7;
-            public static final int angleID = 8;
+            public static final int driveID = 5;
+            public static final int angleID = 4;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
             public static final double angleOffset = 0;

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import frc.robot.Constants;
@@ -21,7 +22,7 @@ public class SwerveModule {
     private TalonFX mDriveMotor;
     private TalonFXConfiguration angleMotorConfig;
     private TalonFXConfiguration driveMotorConfig;
-    private DutyCycle encoder;
+    private DutyCycleEncoder encoder;
     //private TalonSRX encoder;
     private double offset;
     private boolean invertDrive;
@@ -36,7 +37,7 @@ public class SwerveModule {
         this.invertAngle = invertAngle;
         
         /* Absolute Encoder Config */
-        encoder = new DutyCycle(new DigitalInput(encoderPort));
+        encoder = new DutyCycleEncoder(encoderPort);
         //encoder = new TalonSRX(encoderPort);
         //encoder.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 1);
         
@@ -91,8 +92,7 @@ public class SwerveModule {
     }
 
     public double getAbsolutePos(){
-        return encoder.getOutput() * 360;
-        //return encoder.getSelectedSensorPosition() / 4096;
+        return ((encoder.getFrequency()/4096)*360);
     }
 
     public Rotation2d getAngle(){

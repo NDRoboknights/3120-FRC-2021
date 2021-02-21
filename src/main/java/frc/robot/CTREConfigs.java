@@ -26,11 +26,11 @@ public final class CTREConfigs {
         
         /* Swerve Angle Motor Configurations */
 
-        SupplyCurrentLimitConfiguration angleSupplyLimit = new SupplyCurrentLimitConfiguration(
-            Constants.Swerve.angleEnableCurrentLimit, 
-            Constants.Swerve.angleContinuousCurrentLimit, 
-            Constants.Swerve.anglePeakCurrentLimit, 
-            Constants.Swerve.anglePeakCurrentDuration);
+         SupplyCurrentLimitConfiguration angleSupplyLimit = new SupplyCurrentLimitConfiguration(
+             Constants.Swerve.angleEnableCurrentLimit, 
+             Constants.Swerve.angleContinuousCurrentLimit, 
+             Constants.Swerve.anglePeakCurrentLimit, 
+             Constants.Swerve.anglePeakCurrentDuration);
 
         //Mod 0
         mod1AngleFXConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
@@ -79,11 +79,11 @@ public final class CTREConfigs {
 
         /* Swerve Drive Motor Configuration */
 
-        SupplyCurrentLimitConfiguration driveSupplyLimit = new SupplyCurrentLimitConfiguration(
-            Constants.Swerve.driveEnableCurrentLimit, 
-            Constants.Swerve.driveContinuousCurrentLimit, 
-            Constants.Swerve.drivePeakCurrentLimit, 
-            Constants.Swerve.drivePeakCurrentDuration);
+         SupplyCurrentLimitConfiguration driveSupplyLimit = new SupplyCurrentLimitConfiguration(
+             Constants.Swerve.driveEnableCurrentLimit, 
+             Constants.Swerve.driveContinuousCurrentLimit, 
+             Constants.Swerve.drivePeakCurrentLimit, 
+             Constants.Swerve.drivePeakCurrentDuration);
         
         //All Mods
         swerveDriveFXConfig.slot0.kP = Constants.Swerve.driveKP;
