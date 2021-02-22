@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
@@ -12,14 +10,12 @@ import static frc.lib.math.Conversions.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class SwerveModule {
-    private TalonFX mAngleMotor;
-    private TalonFX mDriveMotor;
+    public TalonFX mAngleMotor;
+    public TalonFX mDriveMotor;
     private TalonFXConfiguration angleMotorConfig;
     private TalonFXConfiguration driveMotorConfig;
     private DutyCycleEncoder encoder;

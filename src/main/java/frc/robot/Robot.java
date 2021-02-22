@@ -9,8 +9,9 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import frc.CTRELib.Constant;
-
-import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.DriveCommand;
+import frc.robot.subsystems.SwerveDriveSystem;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -23,109 +24,109 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-// public class Robot extends TimedRobot {
-//   public static CTREConfigs ctreConfigs;
+ public class Robot extends TimedRobot {
+  public static CTREConfigs ctreConfigs;
 
-//   private Command m_autonomousCommand;
+  XboxController _joy = new XboxController(0);
+  SwerveDriveSystem sds = new SwerveDriveSystem();
+  DriveCommand driveCommand = new DriveCommand(sds, _joy);
+  PowerDistributionPanel pdp = new PowerDistributionPanel(17);
+  TalonFX _talon = sds.m_frontLeft.mAngleMotor;
 
-//   private RobotContainer m_robotContainer;
+  private Command m_autonomousCommand;
 
-//   /**
-//    * This function is run when the robot is first started up and should be used for any
-//    * initialization code.
-//    */
-//   @Override
-//   public void robotInit() {
-//     /* Initalizing Configs for CTRE Devices */
-//     ctreConfigs = new CTREConfigs();
-    
-//     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-//     // autonomous chooser on the dashboard.
-//     m_robotContainer = new RobotContainer();
-//   }
+   private RobotContainer m_robotContainer;
+   /**
+    * This function is run when the robot is first started up and should be used for any
+    * initialization code.
+    */
+   @Override
+   public void robotInit() {
+     /* Initalizing Configs for CTRE Devices */
+     ctreConfigs = new CTREConfigs();
+   
+     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+     // autonomous chooser on the dashboard.
+     m_robotContainer = new RobotContainer();
+   }
 
-//   /**
-//    * This function is called every robot packet, no matter the mode. Use this for items like
-//    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-//    *
-//    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-//    * SmartDashboard integrated updating.
-//    */
-//   @Override
-//   public void robotPeriodic() {
-//     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-//     // commands, running already-scheduled commands, removing finished or interrupted commands,
-//     // and running subsystem periodic() methods.  This must be called from the robot's periodic
-//     // block in order for anything in the Command-based framework to work.
-//     CommandScheduler.getInstance().run();
-//   }
+   /**
+    * This function is called every robot packet, no matter the mode. Use this for items like
+    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+    *
+    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+    * SmartDashboard integrated updating.
+    */
+   @Override
+   public void robotPeriodic() {
+     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+     // commands, running already-scheduled commands, removing finished or interrupted commands,
+     // and running subsystem periodic() methods.  This must be called from the robot's periodic
+     // block in order for anything in the Command-based framework to work.
+     CommandScheduler.getInstance().run();
+   }
 
-//   /** This function is called once each time the robot enters Disabled mode. */
-//   @Override
-//   public void disabledInit() {}
+   /** This function is called once each time the robot enters Disabled mode. */
+   @Override
+   public void disabledInit() {}
 
-//   @Override
-//   public void disabledPeriodic() {}
+   @Override
+   public void disabledPeriodic() {}
 
-//   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
-//   @Override
-//   public void autonomousInit() {
-//     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+   @Override
+   public void autonomousInit() {
+     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-//     // schedule the autonomous command (example)
-//     if (m_autonomousCommand != null) {
-//       m_autonomousCommand.schedule();
-//     }
-//   }
+     // schedule the autonomous command (example)
+     if (m_autonomousCommand != null) {
+       m_autonomousCommand.schedule();
+     }
+   }
 
-//   /** This function is called periodically during autonomous. */
-//   @Override
-//   public void autonomousPeriodic() {}
+   /** This function is called periodically during autonomous. */
+   @Override
+   public void autonomousPeriodic() {}
 
-//   @Override
-//   public void teleopInit() {
-//     // This makes sure that the autonomous stops running when
-//     // teleop starts running. If you want the autonomous to
-//     // continue until interrupted by another command, remove
-//     // this line or comment it out.
-//     if (m_autonomousCommand != null) {
-//       m_autonomousCommand.cancel();
-//     }
-//   }
+   @Override
+   public void teleopInit() {
+     // This makes sure that the autonomous stops running when
+     // teleop starts running. If you want the autonomous to
+     // continue until interrupted by another command, remove
+     // this line or comment it out.
+     if (m_autonomousCommand != null) {
+       m_autonomousCommand.cancel();
+     }
+   }
 
-//   /** This function is called periodically during operator control. */
-//   @Override
-//   public void teleopPeriodic() {}
+   /** This function is called periodically during operator control. */
+   @Override
+   public void teleopPeriodic() 
+   {
+     commonLoop();
+   }
 
-//   @Override
-//   public void testInit() {
-//     // Cancels all running commands at the start of test mode.
-//     CommandScheduler.getInstance().cancelAll();
-//   }
+   @Override
+   public void testInit() {
+    // Cancels all running commands at the start of test mode.
+     CommandScheduler.getInstance().cancelAll();
+   }
 
-//   /** This function is called periodically during test mode. */
-//   @Override
-//   public void testPeriodic() {}
-//}
-public class Robot extends TimedRobot {
+   /** This function is called periodically during test mode. */
+   @Override
+   public void testPeriodic() {}
 
-public static CTREConfigs ctreConfigs = new CTREConfigs();
+    /** Used to create string thoughout loop */
+  StringBuilder _sb = new StringBuilder();
+  int _loops = 0;
 
-/** Hardware */
-TalonFX _talon = new TalonFX(2);
-XboxController _joy = new XboxController(0);
+    /** Track button state for single press event */
+  boolean _lastButton1 = false;
 
-  /** Used to create string thoughout loop */
-StringBuilder _sb = new StringBuilder();
-int _loops = 0;
+  /** Save the target position to servo to */
+  double targetPositionRotations;
 
-  /** Track button state for single press event */
-boolean _lastButton1 = false;
-
-/** Save the target position to servo to */
-double targetPositionRotations;
-
-public void robotInit() {
+public void ctreTuningRobotInit() {
   /* Factory Default all hardware to prevent unexpected behaviour */
   _talon.configFactoryDefault();
   
@@ -175,10 +176,9 @@ void commonLoop() {
   /* Gamepad processing */
   double leftYstick = _joy.getY(Hand.kLeft);
   boolean button1 = _joy.getXButton();	// X-But;ton
-  boolean button2 = _joy.getAButton();	// A-Button
 
   /* Get Talon's current output percentage */
-  double motorOutput = _talon.getMotorOutputPercent();
+  double motorOutput = _talon.getMotorOutputVoltage()/pdp.getVoltage();
 
   /* Deadband gamepad */
   if (Math.abs(leftYstick) < 0.10) {
@@ -206,13 +206,6 @@ void commonLoop() {
     /* 10 Rotations * 2048 u/rev in either direction */
     targetPositionRotations = leftYstick * 10.0 * 2048;
     _talon.set(TalonFXControlMode.Position, targetPositionRotations);
-  }
-
-  /* When button 2 is held, just straight drive */
-  if (button2) {
-    /* Percent Output */
-
-    _talon.set(TalonFXControlMode.PercentOutput, leftYstick);
   }
 
   /* If Talon is in position closed-loop, print some more info */
@@ -246,7 +239,4 @@ void commonLoop() {
 /**
  * This function is called periodically during operator control
  */
-public void teleopPeriodic() {
-  commonLoop();
-}
 }

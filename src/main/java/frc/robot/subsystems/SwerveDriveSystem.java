@@ -21,10 +21,10 @@ import frc.robot.Robot;
 
 public class SwerveDriveSystem extends SubsystemBase {
   private SwerveDriveOdometry swerveOdometry;
-  private SwerveModule m_frontLeft;
-  private SwerveModule m_frontRight;
-  private SwerveModule m_rearLeft;
-  private SwerveModule m_rearRight;
+  public SwerveModule m_frontLeft;
+  public SwerveModule m_frontRight;
+  public SwerveModule m_rearLeft;
+  public SwerveModule m_rearRight;
   private NavX navx = new NavX(Port.kMXP);
 
   public SwerveDriveSystem(){

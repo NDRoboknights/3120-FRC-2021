@@ -27,8 +27,8 @@ public final class Constants {
         public static final double wheelDiameter = Units.inchesToMeters(4);
         public static final double wheelCircumference = wheelDiameter * Math.PI;
 
-        public static final double driveGearRatio = (6.84); //TODO: Set your Gear Ratio
-        public static final double angleGearRatio = (12.8); //TODO: Set your Gear Ratio
+        public static final double driveGearRatio = (6.84);
+        public static final double angleGearRatio = (12.8);
 
         /* Distance between front and back wheels on robot */
         public static final SwerveDriveKinematics sdKinematics = new SwerveDriveKinematics(
@@ -49,9 +49,9 @@ public final class Constants {
         public static final boolean driveEnableCurrentLimit = true;
 
         /* Angle Motor PID Values */
-        public static final double angleKP = 0.0;
+        public static final double angleKP = 0.625;
         public static final double angleKI = 0.0;
-        public static final double angleKD = 0.0;
+        public static final double angleKD = 4.0;
         public static final double angleKF = 0.0;
 
         /* Drive Motor PID Values */
