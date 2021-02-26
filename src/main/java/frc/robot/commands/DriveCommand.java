@@ -13,7 +13,7 @@ public class DriveCommand extends CommandBase {
 
     private double rotation;
     private Translation2d translation;
-    private Boolean fieldRelative = true;
+    private Boolean fieldRelative = false;
     
     private SwerveDriveSystem s_Swerve;
     private XboxController controller;

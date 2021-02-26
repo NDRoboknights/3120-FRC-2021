@@ -19,7 +19,7 @@ public final class Constants {
 
         /* Swerve Velocity Values */
         public static final double maxDriveSpeed = Units.feetToMeters(16.2); // TODO: replace the 16.2 with a tested maximum value.
-        public static final double maxAngularSpeed = Units.feetToMeters(0.0); //This is okay being theoretical, dont need to test
+        public static final double maxAngularSpeed = 11.5       ; //This is okay being theoretical, dont need to test
 
         /* Drivetrain Constants */
         public static final double wheelBase = Units.inchesToMeters(25.5);
@@ -49,9 +49,9 @@ public final class Constants {
         public static final boolean driveEnableCurrentLimit = true;
 
         /* Angle Motor PID Values */
-        public static final double angleKP = 0.625;
+        public static final double angleKP = 0.6;
         public static final double angleKI = 0.0;
-        public static final double angleKD = 4.0;
+        public static final double angleKD = 10.0;
         public static final double angleKF = 0.0;
 
         /* Drive Motor PID Values */
@@ -82,7 +82,7 @@ public final class Constants {
             public static final int angleID = 0;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 149.2;
+            public static final double angleOffset = -149.57;
         }
 
         /** Front Right Module */
@@ -92,7 +92,7 @@ public final class Constants {
             public static final int angleID = 6;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 0.88;
+            public static final double angleOffset = -12.19;
         }
         
         /** Back Left Module */
@@ -102,7 +102,7 @@ public final class Constants {
             public static final int angleID = 7;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 6.86;
+            public static final double angleOffset = -7.03;
         }
 
         /** Back Right Module */
@@ -112,7 +112,7 @@ public final class Constants {
             public static final int angleID = 4;
             public static final boolean driveInvert = false;
             public static final boolean angleInvert = false;
-            public static final double angleOffset = 311.3;
+            public static final double angleOffset = -311.59;
         }
 
     }

@@ -52,7 +52,8 @@ public class SwerveModule {
     public void setDesiredState(SwerveModuleState desiredState){
         SwerveModuleState state = new OptimizedSwerveModuleState(desiredState).optimize(desiredState, getAngle()); //Custom SwerveModuleState used only here for the customized .optimize function to work with CTRE
 
-        mDriveMotor.set(ControlMode.Velocity, toFalconFromMetersPerSecond(state.speedMetersPerSecond, Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio));
+        //mDriveMotor.set(ControlMode.Velocity, toFalconFromMetersPerSecond(state.speedMetersPerSecond, Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio));
+        mDriveMotor.set(ControlMode.PercentOutput, (state.speedMetersPerSecond / Constants.Swerve.maxDriveSpeed));
 
         double angle = (Math.abs(state.speedMetersPerSecond) <= (Constants.Swerve.maxDriveSpeed* 0.05)) ? lastAngle : state.angle.getDegrees(); //If the specified drive output is very small and not enough to actually move the robot, then don't move the module angle (AKA a Deadzone) 
         mAngleMotor.set(ControlMode.Position, toFalconFromDegrees(angle, Constants.Swerve.angleGearRatio));
@@ -88,7 +89,7 @@ public class SwerveModule {
     }
 
     public double getAbsolutePos(){
-        return (encoder.get()*360);
+        return (encoder.get()*360.0) % 360.0;
     }
 
     public Rotation2d getAngle(){

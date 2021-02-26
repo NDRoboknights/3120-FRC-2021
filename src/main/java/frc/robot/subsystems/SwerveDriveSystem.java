@@ -118,5 +118,9 @@ public class SwerveDriveSystem extends SubsystemBase {
     SmartDashboard.putNumber("Front Right: ", m_frontRight.getAbsolutePos());
     SmartDashboard.putNumber("Back Left: ", m_rearLeft.getAbsolutePos());
     SmartDashboard.putNumber("Back Right: ", m_rearRight.getAbsolutePos());
+    SmartDashboard.putNumber("Front Left rel: ", m_frontLeft.getAngle().getDegrees());
+    SmartDashboard.putNumber("Front Right rel: ", m_frontRight.getAngle().getDegrees());
+    SmartDashboard.putNumber("Back Left rel: ", m_rearLeft.getAngle().getDegrees());
+    SmartDashboard.putNumber("Back Right rel: ", m_rearRight.getAngle().getDegrees()); 
   }
 }
