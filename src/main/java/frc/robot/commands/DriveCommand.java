@@ -30,8 +30,8 @@ public class DriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        double yAxis = controller.getY(GenericHID.Hand.kLeft);
-        double xAxis = controller.getX(GenericHID.Hand.kLeft);
+        double yAxis = -controller.getY(GenericHID.Hand.kLeft);
+        double xAxis = -controller.getX(GenericHID.Hand.kLeft);
         double rAxis = controller.getX(GenericHID.Hand.kRight);
 
         /* Deadbands, probably a better way of doing this */
