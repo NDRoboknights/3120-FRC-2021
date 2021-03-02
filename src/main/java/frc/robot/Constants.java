@@ -19,7 +19,7 @@ public final class Constants {
 
         /* Swerve Velocity Values */
         public static final double maxDriveSpeed = Units.feetToMeters(16.2); // TODO: replace the 16.2 with a tested maximum value.
-        public static final double maxAngularSpeed = 11.5       ; //This is okay being theoretical, dont need to test
+        public static final double maxAngularSpeed = 11.5; //This is okay being theoretical, dont need to test
 
         /* Drivetrain Constants */
         public static final double wheelBase = Units.inchesToMeters(25.5);
