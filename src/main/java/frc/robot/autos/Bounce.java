@@ -32,14 +32,18 @@ public class Bounce extends SequentialCommandGroup
             TrajectoryGenerator.generateTrajectory(
                 new Pose2d(Units.feetToMeters(2.5), Units.feetToMeters(7.5),  Rotation2d.fromDegrees(0)),
                 List.of(
-                   new Translation2d(Units.feetToMeters(7.5), Units.feetToMeters(11.5)),
-                   new Translation2d(Units.feetToMeters(12.5), Units.feetToMeters(2)),
-                   new Translation2d(Units.feetToMeters(15), Units.feetToMeters(5)),
-                   new Translation2d(Units.feetToMeters(15), Units.feetToMeters(11.5)),
-                   new Translation2d(Units.feetToMeters(16), Units.feetToMeters(2)),
-                   new Translation2d(Units.feetToMeters(22.5), Units.feetToMeters(5)),
-                   new Translation2d(Units.feetToMeters(22.5), Units.feetToMeters(11.5)),
-                   new Translation2d(Units.feetToMeters(22.5), Units.feetToMeters(7.5))
+                   new Translation2d(Units.feetToMeters(7.5), Units.feetToMeters(11)),
+                   new Translation2d(Units.feetToMeters(10), Units.feetToMeters(7)),
+                   new Translation2d(Units.feetToMeters(10), Units.feetToMeters(2.5)),
+                   new Translation2d(Units.feetToMeters(12.5), Units.feetToMeters(2.5)),
+                   new Translation2d(Units.feetToMeters(15), Units.feetToMeters(7)),
+                   new Translation2d(Units.feetToMeters(15), Units.feetToMeters(11)),
+                   new Translation2d(Units.feetToMeters(15), Units.feetToMeters(7)),
+                   new Translation2d(Units.feetToMeters(17.5), Units.feetToMeters(2.5)),
+                   new Translation2d(Units.feetToMeters(22.5), Units.feetToMeters(2.5)),
+                   new Translation2d(Units.feetToMeters(22.5), Units.feetToMeters(7)),
+                   new Translation2d(Units.feetToMeters(22.5), Units.feetToMeters(11)),
+                   new Translation2d(Units.feetToMeters(23.5), Units.feetToMeters(7.25))
                 ),
                 new Pose2d(Units.feetToMeters(27.5), Units.feetToMeters(7.5),  Rotation2d.fromDegrees(0)),
                 config);

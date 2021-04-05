@@ -121,7 +121,7 @@ public final class Constants {
 		//Auton Constants
 	public static final class AutoConstants
 	{
-		public static final double kMaxSpeedMetersPerSecond = Swerve.maxDriveSpeed - 0.5;
+		public static final double kMaxSpeedMetersPerSecond = Swerve.maxDriveSpeed - Units.feetToMeters(1.5);
 		public static final double kMaxAccelerationMetersPerSecondSquared = 4;
 
 		public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
