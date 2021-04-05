@@ -18,37 +18,37 @@ import frc.robot.subsystems.SwerveDriveSystem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  /* Configure Controllers */
-  private final XboxController m_driverController = new XboxController(0);
+	/* Configure Controllers */
+	private final XboxController m_driverController = new XboxController(0);
 
-  /* Configure Buttons */
-  private final JoystickButton zeroGyro = new JoystickButton(m_driverController, 4);
+	/* Configure Buttons */
+	private final JoystickButton zeroGyro = new JoystickButton(m_driverController, 4);
 
-  /* Configure Subsystems */
-  private final SwerveDriveSystem s_Swerve = new SwerveDriveSystem();
+	/* Configure Subsystems */
+	private final SwerveDriveSystem s_Swerve = new SwerveDriveSystem();
 
-  
-  public RobotContainer() {
-    s_Swerve.setDefaultCommand(new DriveCommand(s_Swerve, m_driverController));    
+	
+	public RobotContainer() {
+		s_Swerve.setDefaultCommand(new DriveCommand(s_Swerve, m_driverController));    
 
-    configureButtonBindings();
-  }
+		configureButtonBindings();
+	}
 
-  private void configureButtonBindings() {
-    zeroGyro.whenPressed(new InstantCommand(() -> zeroGyro()));
+	private void configureButtonBindings() {
+		zeroGyro.whenPressed(new InstantCommand(() -> zeroGyro()));
 
-  }
+	}
 
-  public void zeroGyro(){
-    s_Swerve.zeroGyro();
-  }
+	public void zeroGyro(){
+		s_Swerve.zeroGyro();
+	}
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return null;
-  }
+	/**
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
+	public Command getAutonomousCommand() {
+		return null;
+	}
 }
