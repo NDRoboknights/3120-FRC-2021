@@ -136,4 +136,31 @@ public final class Constants {
 			kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 	}
 	
+	public static final class RestOfRobot
+	{
+		//SPARK MAX
+		public static final int indexerNEOID = 9;
+		public static final int shooterNEOOne = 10;
+		public static final int shooterNEOTwo = 11;
+		public static final int hoodNEO = 12;
+
+		//TALON SRX
+		public static final int vHopper775One = 13;
+		public static final int vHopper775Two = 14;
+		public static final int vHopper775Three = 15;
+
+		public class Shooter
+		{
+			// PID coefficients
+			public static final double kP = 6e-5; 
+			public static final double kI = 0;
+			public static final double kD = 6e-6; 
+			public static final double kIz = 0; 
+			public static final double kFF = 0.000156; 
+			public static final double kMaxOutput = 1; 
+			public static final double kMinOutput = -1;
+			public static final double maxRPM = 5700;
+			public static final double shotRPM = 5250;
+		}
+	}
 }
