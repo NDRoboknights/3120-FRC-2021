@@ -13,7 +13,6 @@ import frc.robot.subsystems.ShooterSystem;
 public class ShooterCommand extends CommandBase 
 {
   private ShooterSystem sSystem;
-  private double revolutionsPerMinute;
   private XboxController controller;
 
   /** Creates a new ShooterCommand. */
@@ -23,6 +22,7 @@ public class ShooterCommand extends CommandBase
     this.sSystem = sSystem;
     this.controller = controller;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(sSystem);
   }
 
   // Called when the command is initially scheduled.

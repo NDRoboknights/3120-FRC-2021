@@ -18,12 +18,16 @@ public class ShooterSystem extends SubsystemBase
   public CANSparkMax s1, s2;
 
   private CANPIDController s1PIDController, s2PIDController;
+  private Vision vis;
   
   /** Creates a new ShooterSystem. */
   public ShooterSystem() 
   {
+      vis = new Vision();
       s1 = new CANSparkMax(Constants.RestOfRobot.shooterNEOOne, MotorType.kBrushless);
       s2 = new CANSparkMax(Constants.RestOfRobot.shooterNEOTwo, MotorType.kBrushless);
+
+      s2.follow(s1, true);
 
       /**
      * The RestoreFactoryDefaults method can be used to reset the configuration parameters
@@ -55,19 +59,18 @@ public class ShooterSystem extends SubsystemBase
   public void eStop()
   {
     s1.set(0);
-    s2.set(0);
   }
 
   @Override
   public void periodic() 
   {
     SmartDashboard.putNumber("Shooter velocity: ", (s1.getEncoder().getVelocity() + s2.getEncoder().getVelocity())/2.0);
+    SmartDashboard.putString("Distance to target: ", vis.getDistance().toString());
   }
 
   public void setVelocity(double revolutionsPerMinute)
   {
     s1PIDController.setReference(revolutionsPerMinute, ControlType.kVelocity);
-    s2PIDController.setReference(revolutionsPerMinute, ControlType.kVelocity);
   }
 
 }
