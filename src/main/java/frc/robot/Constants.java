@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
@@ -117,6 +118,13 @@ public final class Constants {
 		}
 
 	}
+
+	public static final class Vision {
+        public static final double goalHeight = Units.inchesToMeters(81.0 + (17.0 / 2.0));
+        public static final double limelightHeight = Units.inchesToMeters(21.9); //TODO: Change this
+        public static final Rotation2d limelightAngle = Rotation2d.fromDegrees(36.0); //TODO: Change this
+        public static final Rotation2d fovTx = Rotation2d.fromDegrees(59.6);
+    }
 	
 		//Auton Constants
 	public static final class AutoConstants

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.SwerveDriveSystem;
+import frc.robot.subsystems.Vision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,6 +27,7 @@ public class RobotContainer {
 
 	/* Configure Subsystems */
 	private final SwerveDriveSystem s_Swerve = new SwerveDriveSystem();
+	private final Vision s_Vision = new Vision();
 
 	
 	public RobotContainer() {
